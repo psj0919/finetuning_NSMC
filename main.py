@@ -6,6 +6,7 @@ from transformers import AutoTokenizer, ElectraForSequenceClassification, AdamW
 from tqdm.notebook import tqdm
 import urllib.request
 
+from transformers import AutoTokenizer, AutoModelForCausalLM
 from dataset import NSMCDataset
 
 
@@ -59,6 +60,16 @@ def eval():
 
     print("Accuracy:", test_correct.float() / test_total)
 
+def upload_model_to_hugging_face():
+    # Huggingface Access Token
+    ACCESS_TOKEN = "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"
+
+    model = ElectraForSequenceClassification.from_pretrained("monologg/koelectra-base-v3-discriminator").to(device)
+    tokenizer = AutoTokenizer.from_pretrained("daekeun-ml/ko-trocr-base-nsmc-news-chatbot")
+
+    # Upload to Huggingface
+    model.push_to_hub('NSMC_finetune_sj', use_temp_dir=True, use_auth_token=ACCESS_TOKEN)
+    tokenizer.push_to_hub('NSMC_finetune_sj', use_temp_dir=True, use_auth_token=ACCESS_TOKEN)
 
 if __name__=='__main__':
     # -------------------------- dataset_download-------------------------------
@@ -79,7 +90,7 @@ if __name__=='__main__':
     test_dataset = NSMCDataset("/storage/sjpark/NSMC/test.txt")
 
     model = ElectraForSequenceClassification.from_pretrained("monologg/koelectra-base-v3-discriminator").to(device)
-
+    tokenizer = AutoTokenizer.from_pretrained("daekeun-ml/ko-trocr-base-nsmc-news-chatbot")
     epochs = 5
     batch_size = 16
 
@@ -88,4 +99,10 @@ if __name__=='__main__':
     test_loader = DataLoader(test_dataset, batch_size=16, shuffle=True)
     train()
     eval()
+    # upload_model_to_hugging_face()
+    print("model loading...")
 
+    ACCESS_TOKEN = "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"
+
+    model.push_to_hub('NSMC_finetune_sj', use_temp_dir=True, use_auth_token=ACCESS_TOKEN)
+    tokenizer.push_to_hub('NSMC_finetune_sj', use_temp_dir=True, use_auth_token=ACCESS_TOKEN)
