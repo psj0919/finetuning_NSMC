@@ -104,5 +104,7 @@ if __name__=='__main__':
 
     ACCESS_TOKEN = "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"
 
-    model.push_to_hub('NSMC_finetune_sj', use_temp_dir=True, use_auth_token=ACCESS_TOKEN)
-    tokenizer.push_to_hub('NSMC_finetune_sj', use_temp_dir=True, use_auth_token=ACCESS_TOKEN)
+    tokenizer.save_pretrained("./model")
+    model.save_pretrained("./model")
+    # model.push_to_hub('NSMC_finetune_sj', use_temp_dir=True, use_auth_token=ACCESS_TOKEN)
+    # tokenizer.push_to_hub('NSMC_finetune_sj', use_temp_dir=True, use_auth_token=ACCESS_TOKEN)
