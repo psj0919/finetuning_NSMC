@@ -5,6 +5,9 @@
 
 
 
+
+
+
 F1-score
 precision과 Recall의 조화평균.
 F1-score는 0과1사이의 값이며 1에 가까울수록 분류성능이 좋음을 나타냅니다.
