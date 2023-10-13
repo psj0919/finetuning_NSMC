@@ -1,4 +1,8 @@
 # finetuning_NSMC
+1번에 대한 결과
+![image](https://github.com/psj0919/finetuning_NSMC/assets/110454977/7a5c93cb-9f59-482d-b58e-09308f8298fa)
+
+
 
 F1-score
 precision과 Recall의 조화평균.
